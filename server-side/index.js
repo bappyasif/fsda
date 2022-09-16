@@ -5,6 +5,7 @@ let bodyParser = require("body-parser")
 let mysql = require("mysql");
 
 let cors = require("cors");
+
 const { json } = require("body-parser");
 
 let app = express();
@@ -24,6 +25,7 @@ app.use(json())
 
 app.get("/data", (req, res) => {
     let sqlSelect = "SELECT * from comments;"
+
     db.query(sqlSelect, (err, result) => {
         if(err) throw(err)
 
@@ -45,13 +47,13 @@ app.get("/data", (req, res) => {
 app.post("/data/insert", (req, res) => {
     // console.log(req.body, "!!")
     
-    let sqlInsert = `INSERT INTO comments (id, body, postId, userid, username) VALUES (?, ?, ?, ?, ?)`;
+    let sqlInsert = `INSERT IGNORE INTO comments (id, body, postId, userid, username) VALUES (?, ?, ?, ?, ?)`;
     
     req.body?.normalizedJson.forEach(item => {
         let {id, body, postId, userid, username} = {...item}
         db.query(sqlInsert, [id, body, postId, userid, username], (err, result) => {
             if(err) throw (err)
-            console.log("insert successfull")
+            console.log("insert successfull", result)
         })
     })
 
@@ -66,6 +68,61 @@ app.listen(3001, () => console.log('running on port 3001'))
 
 
 /**
+ * 
+ * 
+ let db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'fsda'
+})
+
+ db.connect(err => {
+    if(err) throw(err)
+    
+    console.log("db connected")
+    // creating table
+
+    let sqlStatement = "create table comments(id INT PRIMARY KEY, body VARCHAR(255), postId INT, userid INT, username VARCHAR(44));"
+
+    db.query(sqlStatement, (err, result) => {
+        if(err) throw(err)
+        console.log(result, "<<result>>")
+    })
+})
+
+app.get("/", (req, res) => {
+    let sqlInsert = "INSERT IGNORE INTO comments (id, body, postId, userid, username) VALUES (1, 'what what', 99, 98, 'ab');"
+    db.query(sqlInsert, (err, result) => {
+        if(err) throw(err);
+        console.log(result, "<<resuly>>")
+        res.send("hallo hallo")
+    })
+})
+ * 
+ * 
+ // trying to use primary key in table entries to avoid duplication
+ // to create a table and schema in it
+let db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'fsda'
+})
+
+ db.connect(err => {
+    if(err) throw(err)
+    
+    console.log("db connected")
+    // creating table
+
+    let sqlStatement = "create table comments(id INT, body VARCHAR(255), postId INT, userid INT, username VARCHAR(44), PRIMARY KEY(id));"
+
+    db.query(sqlStatement, (err, result) => {
+        if(err) throw(err)
+        console.log(result, "<<result>>")
+    })
+})
  * 
  * 
  // to create entries in database table

@@ -4,8 +4,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faUser, faComment, faSearch} from "@fortawesome/free-solid-svg-icons"
 import axios from "axios";
 
-function SearchComponent() {
-  let [data, setData] = useState([])
+function SearchComponent({data}) {
+  // let [data, setData] = useState([])
 
   let [searchText, setSearchText] = useState(null)
 
@@ -15,14 +15,14 @@ function SearchComponent() {
 
   // useEffect(() =>  setData(extractData()), [])
 
-  useEffect(() => {
-    axios.get("http://localhost:3001/data")
-    .then(res => {
-      // console.log(data)
-      setData(res.data)
-    })
-    .catch(err => console.log(err))
-  }, [])
+  // useEffect(() => {
+  //   axios.get("http://localhost:3001/data")
+  //   .then(res => {
+  //     // console.log(data)
+  //     setData(res.data)
+  //   })
+  //   .catch(err => console.log(err))
+  // }, [])
   
   useEffect(() => {
     setFoundMatches(matchEntries(data, searchText))

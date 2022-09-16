@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import Axios from "axios"
 
-function FormComponent() {
+function FormComponent({setUploaded}) {
     let [jsonFile, setJsonFile] = useState()
     
     let [jsonData, setJsonData] = useState()
@@ -48,16 +48,18 @@ function FormComponent() {
 
     // console.log(jsonParsedData, "<><>", normalizedJson)
 
+    
+
     return (
         <div className='form-component'>
             FormComponent
-            <UploadFile handleJson={handleJson} normalizedJson={normalizedJson} />
+            <UploadFile setUploaded={setUploaded} handleJson={handleJson} normalizedJson={normalizedJson} />
             {jsonParsedData?.comments.length}
         </div>
     )
 }
 
-let UploadFile = ({ handleJson, normalizedJson }) => {
+let UploadFile = ({ handleJson, normalizedJson, setUploaded }) => {
 
     let handleFile = evt => {
         handleJson(evt.target.files[0])
@@ -68,9 +70,12 @@ let UploadFile = ({ handleJson, normalizedJson }) => {
         if(normalizedJson?.length) {
             // Axios({method: "post", url: "http://localhost:3001/data/insert"}, {normalizedJson})
             Axios.post("http://localhost:3001/data/insert", {normalizedJson: normalizedJson})
-            .then(() => console.log("data sent is successfull"))
+            .then(() => {
+                console.log("data sent is successfull")
+            })
             .catch(err => console.log(err))
         }
+        setUploaded()
     }
 
     return (

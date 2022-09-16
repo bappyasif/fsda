@@ -1,4 +1,5 @@
 import resData from "./resources/response.json"
+import axios from "axios"
 
 let extractData = () => {
     let data = [];
@@ -6,6 +7,14 @@ let extractData = () => {
     resData.comments.forEach(item => data.push(item))
     
     return data
+}
+
+let getDataFromApi = (dataUpdater) => {
+    axios.get("http://localhost:3001/data")
+    .then(res => {
+      dataUpdater(res.data)
+    })
+    .catch(err => console.log(err))
 }
 
 let matchEntries = (data, searchToken) => {
@@ -22,4 +31,4 @@ let matchEntries = (data, searchToken) => {
     return found;
 }
 
-export {extractData, matchEntries}
+export {extractData, matchEntries, getDataFromApi}
