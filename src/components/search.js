@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { extractData, matchEntries } from './utility'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faUser, faComment, faSearch} from "@fortawesome/free-solid-svg-icons"
+import axios from "axios";
 
 function SearchComponent() {
   let [data, setData] = useState([])
@@ -12,7 +13,16 @@ function SearchComponent() {
   
   let handleSearchText = evt => setSearchText(evt.target.value)
 
-  useEffect(() =>  setData(extractData()), [])
+  // useEffect(() =>  setData(extractData()), [])
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/data")
+    .then(res => {
+      // console.log(data)
+      setData(res.data)
+    })
+    .catch(err => console.log(err))
+  }, [])
   
   useEffect(() => {
     setFoundMatches(matchEntries(data, searchText))
@@ -54,7 +64,7 @@ let RenderItemView = ({comment}) => {
 let SearchView = ({handleSearchText}) => {
   return (
     <div className='sv-wrapper'>
-      <input type={'search'} onChange={handleSearchText} />
+      <input type={'search'} onChange={handleSearchText} placeholder='Please type in here....' />
       <label><FontAwesomeIcon icon={faSearch} /> Search</label>
     </div>
   )

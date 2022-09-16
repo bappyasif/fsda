@@ -6,7 +6,7 @@ import SearchComponent from './components/search';
 function App() {
   return (
     <div className="App">
-      {/* <FormComponent /> */}
+      <FormComponent />
       <SearchComponent />
     </div>
   );
