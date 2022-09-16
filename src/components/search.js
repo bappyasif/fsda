@@ -1,34 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { extractData, matchEntries } from './utility'
+import { matchEntries } from './utility'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faUser, faComment, faSearch} from "@fortawesome/free-solid-svg-icons"
-import axios from "axios";
 
 function SearchComponent({data}) {
-  // let [data, setData] = useState([])
-
   let [searchText, setSearchText] = useState(null)
 
   let [foundMatches, setFoundMatches] = useState([])
   
   let handleSearchText = evt => setSearchText(evt.target.value)
-
-  // useEffect(() =>  setData(extractData()), [])
-
-  // useEffect(() => {
-  //   axios.get("http://localhost:3001/data")
-  //   .then(res => {
-  //     // console.log(data)
-  //     setData(res.data)
-  //   })
-  //   .catch(err => console.log(err))
-  // }, [])
   
   useEffect(() => {
     setFoundMatches(matchEntries(data, searchText))
   }, [searchText])
-
-  // console.log(foundMatches, "ready!!", searchText)
 
   return (
     <div className='sc-container'>
