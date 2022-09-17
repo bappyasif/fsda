@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import Axios from "axios"
 import { insertDataToDatabase } from './utility'
 
 function FormComponent({setUploaded}) {

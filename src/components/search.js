@@ -27,7 +27,7 @@ let DataSearchReadyAnnouncement = ({ data }) => {
   let [announcement, setAnnouncement] = useState()
 
   let removeSearchReadyAnnouncement = () => {
-    let timeout = setTimeout(() => setAnnouncement(''), 226000)
+    let timeout = setTimeout(() => setAnnouncement(''), 6000)
 
     return () => clearTimeout(timeout)
   }
