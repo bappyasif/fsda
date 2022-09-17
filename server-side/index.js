@@ -63,3 +63,40 @@ app.get("/", (req, res) => {
 })
 
 app.listen(3001, () => console.log('running on port 3001'))
+
+// codes that i used to create database and table for this assignment
+// im sure there are better ways to do this more elegantly but i didnt know any better
+/**
+ * 
+ * 
+ let db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'fsda'
+ })
+ // run this after "fsda" database is available, to create table schema
+ db.connect(err => {
+    if(err) throw(err)
+
+    console.log("db connected")
+    // creating table schema
+    let sqlStatement = "create table comments(id INT PRIMARY KEY, body VARCHAR(255), postId INT, userid INT, username VARCHAR(44));"
+    db.query(sqlStatement, (err, result) => {
+        if(err) throw(err)
+    })
+})
+ * 
+ * 
+let db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: ''
+})
+// run this to create a database named "fsda"
+// creating database
+db.query("create database "+"fsda", (err, result, fields) => {
+    if(err) throw(err)
+    console.log(result, "successfull")
+})
+ */
