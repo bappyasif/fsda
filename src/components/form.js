@@ -47,13 +47,11 @@ function FormComponent({setUploaded}) {
                 setNormalizedJson(prev=>[...prev, flatObj])
             })
         }
-    }, [jsonParsedData])    
+    }, [jsonParsedData])
 
     return (
         <div className='form-component'>
-            FormComponent
             <UploadFile setUploaded={setUploaded} handleJson={handleJson} normalizedJson={normalizedJson} />
-            {jsonParsedData?.comments.length}
         </div>
     )
 }

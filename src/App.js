@@ -18,7 +18,8 @@ function App() {
   // this is handy because, when data is not yet in database but just uploaded them through our form
   // then this hook will fetch data from databse whenever there is a new submit of data
   useEffect(() => {
-    uploaded && getDataFromApi(setData)
+    uploaded && getDataFromApi(setData);
+    // uploaded && console.log("here!!")
   }, [uploaded])
 
   return (
